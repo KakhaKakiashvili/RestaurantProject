@@ -1,0 +1,37 @@
+<h2 class="title">Categories</h2>
+<ul>
+    <a>
+        <li *ngFor="let category of service.categories"
+            (click)="service.getCategoryProducts(category.id); categoryId=category.id">
+            {{ category.name}}
+        </li>
+        <li class="all-products" (click)="service.getProducts(); categoryId= 0"> All Products</li>
+    </a>
+</ul>
+
+<hr>
+<div class="tab-content">
+    <div class="filter">
+        <div class="form">
+            <label for="veg">Vegetarian</label>
+            <input type="checkbox" id="veg" [(ngModel)]="vegetarian">
+            <br>
+            <label for="nuts">Nuts</label>
+            <input type="checkbox" id="nuts" [(ngModel)]="nuts">
+            <br>
+            <label for="spiciness">Spiciness</label>
+            <input type="range" id="spiciness" min="0" max="4" [(ngModel)]="range" [defaultValue]="0">
+            <p> {{ range ? range : 'Not chosen'}} </p>
+            <button (click)="filterProducts()">Filter</button>
+            <button (click)="resetFilter()" (click)="service.getProducts()"> Reset Filter </button>
+        </div>
+    </div>
+    <div class="products">
+        <div class="product" *ngFor="let product of service.products; let i = index">
+            <h3> {{ product.name }} </h3>
+            <img [src]="product.image">
+            <p> {{ product.price | currency:'₾' }} </p>
+            <button class="add-to-cart" (click)="addToCart(product)">Add to cart</button>
+        </div>
+    </div>
+</div>

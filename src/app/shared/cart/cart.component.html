@@ -1,0 +1,64 @@
+
+<h1>Cart</h1>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192 32 192c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512L430 512c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32l-85.6 0L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192l-232.6 0L253.3 35.1zM192 304l0 96c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-96c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16l0 96c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-96c0-8.8 7.2-16 16-16zm128 16l0 96c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-96c0-8.8 7.2-16 16-16s16 7.2 16 16z"/>
+</svg>
+<hr>
+<div class="cart">
+@for(item of service.getItems(); track item.id) {
+    <div class="cart-item">
+        <h3> {{ item.name }} </h3>
+        <img [src]="item.image">
+        <p> Price: {{ item.price }}₾ </p>
+        <p> {{ item.quantity }} </p>
+        <div class="buttons">
+            <button (click)="service.increaseQuantity(item.id)">+</button>
+            <button (click)="service.decreaseQuantity(item.id)">-</button>
+        </div>
+            <button class="deleteBtn" (click)="deleteFromCart(item)">Delete</button>
+    </div>
+}
+</div>
+
+<div class="total">
+    <h1>Total: {{ service.getTotal() }} ₾ </h1>
+</div>
+
+    <div class="checkout">
+        <button (click)="checkoutPopup()">Checkout</button>
+    </div>
+    <div class="popup-container" [class.active]="addCheckoutClass">
+        <div class="popup-box">
+            <div class="card-img">
+                <img src="/images/mastercard.svg" width="60px" height="30px">
+                <img src="/images/visa.svg" width="60px" height="30px">
+            </div>
+            <form class="form" [formGroup]="checkoutForm" (ngSubmit)="formValue()">
+                <div class="form-inputs">
+                    <label for="firstname">First name</label>
+                    <input type="text" id="firstname" maxlength="15" formControlName="firstName">
+                        <div class="important" *ngIf="checkoutForm.get('firstName')?.invalid && checkoutForm.get('firstName')?.touched">
+                            <p *ngIf="checkoutForm.get('firstName')?.errors?.['required']">*Field is required</p>
+                        </div>
+                    <label for="lastname">Last name</label>
+                    <input type="text" id="lastname" maxlength="15" formControlName="lastName">
+                        <div class="important" *ngIf="checkoutForm.get('lastName')?.invalid && checkoutForm.get('lastName')?.touched">
+                            <p *ngIf="checkoutForm.get('lastName')?.errors?.['required']">*Field is required</p>
+                        </div>
+                    <label for="phone">Phone number</label>
+                    <input type="text" id="phone" inputmode="numeric" formControlName="phoneNumber">
+                        <div class="important" *ngIf="checkoutForm.get('phoneNumber')?.invalid && checkoutForm.get('phoneNumber')?.touched">
+                            <p *ngIf="checkoutForm.get('phoneNumber')?.errors?.['required']">*Phone number is required</p>
+                            <p *ngIf="checkoutForm.get('phoneNumber')?.errors?.['minlength']">
+                                *Invalid phone number
+                            </p>
+                        </div>
+                </div>
+                <div class="checkout-btn">
+                    <button type="submit" [disabled]="checkoutForm.invalid">Submit</button>
+                </div>
+            </form>
+          <button (click)="closePopup()">Close</button>
+        </div>
+      </div>
+    
