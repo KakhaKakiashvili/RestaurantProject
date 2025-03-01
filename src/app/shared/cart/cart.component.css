@@ -168,6 +168,7 @@ input.ng-touched.ng-invalid  {
     max-lines: 9;
 }
 
+/* ANIMATIONS */
 
 @keyframes checkout {
     30% {
@@ -185,5 +186,32 @@ input.ng-touched.ng-invalid  {
         box-shadow: 0 1px 2px  rgb(59, 170, 235);
         background-color: lightgreen;
         border-radius: 10px;
+    }
+}
+
+/* MEDIA */
+
+@media (max-width: 520px) {
+    .cart-item {
+        width: 150px;
+    }
+    .cart-item img {
+        width: 120px;
+    }
+
+    .cart-item h3 {
+        font-size: 13px;
+    }
+    .cart-item p {
+        font-size: 12px;
+    }
+
+    .buttons button {
+        width: 18px;
+        height: 18px;
+    }
+    .deleteBtn {
+        width: 80px;
+        height: 20px;
     }
 }

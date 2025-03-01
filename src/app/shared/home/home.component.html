@@ -13,17 +13,22 @@
 <div class="tab-content">
     <div class="filter">
         <div class="form">
-            <label for="veg">Vegetarian</label>
-            <input type="checkbox" id="veg" [(ngModel)]="vegetarian">
-            <br>
-            <label for="nuts">Nuts</label>
-            <input type="checkbox" id="nuts" [(ngModel)]="nuts">
-            <br>
-            <label for="spiciness">Spiciness</label>
-            <input type="range" id="spiciness" min="0" max="4" [(ngModel)]="range" [defaultValue]="0">
-            <p> {{ range ? range : 'Not chosen'}} </p>
-            <button (click)="filterProducts()">Filter</button>
-            <button (click)="resetFilter()" (click)="service.getProducts()"> Reset Filter </button>
+            <div class="form-inputs">
+                <label for="veg">Vegetarian</label>
+                <input type="checkbox" id="veg" [(ngModel)]="vegetarian">
+                <br>
+                <label for="nuts">Nuts</label>
+                <input type="checkbox" id="nuts" [(ngModel)]="nuts">
+                <br>
+                <label for="spiciness">Spiciness</label>
+                <br>
+                <input type="range" id="spiciness" min="0" max="4" [(ngModel)]="range" [defaultValue]="0">
+                <p> {{ range ? range : 'Not chosen'}} </p>
+            </div>
+            <div class="form-buttons">
+                <button (click)="filterProducts()">Filter</button>
+                <button (click)="resetFilter()" (click)="service.getProducts()"> Reset Filter </button>
+            </div>
         </div>
     </div>
     <div class="products">
